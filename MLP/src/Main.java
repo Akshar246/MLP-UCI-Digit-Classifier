@@ -1,6 +1,3 @@
-
-// |------------------------ Implementing the MLP------------------------------|
-
 import java.io.*;
 import java.util.*;
 import java.util.stream.*;
@@ -9,13 +6,12 @@ public class Main {
     public static void main(String[] args) {
         try {
             // Load datasets
-            String dataSet1Path = "dataSet1.csv"; // Replace with your actual path
-            String dataSet2Path = "dataSet2.csv"; // Replace with your actual path
+            String dataSet1Path = "dataSet1.csv";
+            String dataSet2Path = "dataSet2.csv";
 
             double[][] dataSet1 = DataLoader.loadDataset(dataSet1Path);
             double[][] dataSet2 = DataLoader.loadDataset(dataSet2Path);
 
-            // Combine datasets
             double[][] combinedData = Stream.concat(Arrays.stream(dataSet1), Arrays.stream(dataSet2))
                     .toArray(double[][]::new);
 
@@ -37,7 +33,7 @@ public class Main {
         }
     }
 
-    // Helper method to extract labels (last column of dataset)
+    // Helper method to extract labels 
     private static int[] extractLabels(double[][] data) {
         int[] labels = new int[data.length];
         for (int i = 0; i < data.length; i++) {
@@ -120,7 +116,6 @@ class MLP {
                 double[] hiddenLayer = activate(data[i], weightsInputHidden, biasHidden);
                 double[] outputLayer = activate(hiddenLayer, weightsHiddenOutput, biasOutput);
 
-                // Compute error
                 double target = labels[i] == 1 ? 1.0 : 0.0; // Binary target
                 double error = outputLayer[0] - target;
                 totalLoss += 0.5 * error * error;
